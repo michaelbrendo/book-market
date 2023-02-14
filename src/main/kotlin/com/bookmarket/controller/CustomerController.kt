@@ -4,6 +4,7 @@ import com.bookmarket.controller.request.PostCustomerRequest
 import com.bookmarket.model.CustomerModel
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,13 +18,18 @@ class CustomerController {
     val customers = mutableListOf<CustomerModel>()
 
     @GetMapping
-    fun getCustomer(): MutableList<CustomerModel> {
+    fun getAllCustomer(): MutableList<CustomerModel> {
         return customers
+    }
+
+    @GetMapping("/{id}")
+    fun getCustomer(@PathVariable id: String): CustomerModel {
+        return customers.filter { it.id == id }.first()
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun postCustomer(@RequestBody customer: PostCustomerRequest){
+    fun postCustomer(@RequestBody customer: PostCustomerRequest) {
         val id = UUID.randomUUID()
         customers.add(CustomerModel("$id", customer.name, customer.email))
     }
