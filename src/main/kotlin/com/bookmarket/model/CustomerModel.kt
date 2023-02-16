@@ -1,7 +1,9 @@
 package com.bookmarket.model
 
+import java.util.UUID
+
 data class CustomerModel(
-    var id: String,
+    val id: UUID? = UUID.randomUUID(),
     var name: String,
     var email: String
 )
