@@ -21,25 +21,25 @@ class CustomerController(
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: UUID): CustomerModel {
-        return customerService.getCustomer(id)
+    fun getCustomer(@PathVariable id: Int): CustomerModel {
+        return customerService.getCustomerById(id)
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun postCustomer(@RequestBody customer: PostCustomerRequest) {
-        customerService.postCustomer(customer.toCustomerModel())
+    fun createCustomer(@RequestBody customer: PostCustomerRequest) {
+        customerService.createCustomer(customer.toCustomerModel())
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun putCustomer(@PathVariable id: UUID, @RequestBody customer: PutCustomerRequest) {
-        customerService.putCustomer(customer.toCustomerModel(id))
+    fun putCustomer(@PathVariable id: Int, @RequestBody customer: PutCustomerRequest) {
+        customerService.updateCustomer(customer.toCustomerModel(id))
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteCustomer(@PathVariable id: UUID) {
+    fun deleteCustomer(@PathVariable id: Int) {
         customerService.deleteCustomer(id)
     }
 

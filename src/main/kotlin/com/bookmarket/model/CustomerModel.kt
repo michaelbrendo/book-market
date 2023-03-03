@@ -1,9 +1,17 @@
 package com.bookmarket.model
 
-import java.util.UUID
+import jakarta.persistence.*
 
+@Entity(name = "customer")
 data class CustomerModel(
-    val id: UUID? = UUID.randomUUID(),
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int? = null,
+
+    @Column
     var name: String,
+
+    @Column
     var email: String
 )
