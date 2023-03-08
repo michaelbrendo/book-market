@@ -3,10 +3,10 @@ package com.bookmarket.extension
 import com.bookmarket.Enums.BookStatus
 import com.bookmarket.controller.request.PostBookRequest
 import com.bookmarket.controller.request.PostCustomerRequest
+import com.bookmarket.controller.request.PutBookRequest
 import com.bookmarket.controller.request.PutCustomerRequest
 import com.bookmarket.model.BookModel
 import com.bookmarket.model.CustomerModel
-import java.util.*
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
     return CustomerModel(name = this.name, email = this.email)
@@ -22,5 +22,15 @@ fun PostBookRequest.toBookModel(customer: CustomerModel): BookModel {
         price = this.price,
         status = BookStatus.ACTIVE,
         customer = customer
+    )
+}
+
+fun PutBookRequest.toBookModel(previousBook: BookModel): BookModel {
+    return BookModel(
+        id = previousBook.id,
+        name = this.name ?: previousBook.name,
+        price = this.price ?: previousBook.price,
+        status = previousBook.status,
+        customer = previousBook.customer
     )
 }
