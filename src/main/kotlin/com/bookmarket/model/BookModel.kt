@@ -5,7 +5,7 @@ import jakarta.persistence.*
 import org.hibernate.annotations.ManyToAny
 import java.math.BigDecimal
 
-@Entity(name = "customer")
+@Entity(name = "book")
 data class BookModel(
 
     @Id
