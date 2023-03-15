@@ -7,7 +7,8 @@ import java.lang.Exception
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository
+    val customerRepository: CustomerRepository,
+    val bookService: BookService
 ) {
 
     fun getAllCustomer(name: String?): List<CustomerModel> {
@@ -17,7 +18,7 @@ class CustomerService(
         return customerRepository.findAll().toList()
     }
 
-    fun getCustomerById(id: Int): CustomerModel {
+    fun findCustomerById(id: Int): CustomerModel {
         return customerRepository.findById(id).orElseThrow()
     }
 
@@ -33,9 +34,8 @@ class CustomerService(
     }
 
     fun deleteCustomer(id: Int) {
-        if (!customerRepository.existsById(id)) {
-            throw Exception()
-        }
+        val customer = findCustomerById(id)
+        bookService.deleteByCustomer(customer)
         customerRepository.deleteById(id)
     }
 
