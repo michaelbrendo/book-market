@@ -1,8 +1,15 @@
 package com.bookmarket.model
 
 import com.bookmarket.Enums.BookStatus
-import jakarta.persistence.*
-import org.hibernate.annotations.ManyToAny
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
 
 @Entity(name = "book")

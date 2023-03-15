@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("books")
 class BookControler(
     val customerService: CustomerService,
-    val bookService: BookService,
+    val bookService: BookService
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,7 +49,7 @@ class BookControler(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    fun updateBookById(@PathVariable id: Int, @RequestBody book: PutBookRequest){
+    fun updateBookById(@PathVariable id: Int, @RequestBody book: PutBookRequest) {
         val bookSaved = bookService.findBookById(id)
         bookService.updateBookById(book.toBookModel(bookSaved))
     }

@@ -38,5 +38,4 @@ class CustomerService(
         bookService.deleteByCustomer(customer)
         customerRepository.deleteById(id)
     }
-
 }
