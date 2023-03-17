@@ -1,5 +1,6 @@
 package com.bookmarket.service
 
+import com.bookmarket.Enums.CustomerStatus
 import com.bookmarket.model.CustomerModel
 import com.bookmarket.repository.CustomerRepository
 import org.springframework.stereotype.Service
@@ -36,6 +37,8 @@ class CustomerService(
     fun deleteCustomer(id: Int) {
         val customer = findCustomerById(id)
         bookService.deleteByCustomer(customer)
-        customerRepository.deleteById(id)
+
+        customer.status = CustomerStatus.INACTIVE
+        customerRepository.save(customer)
     }
 }

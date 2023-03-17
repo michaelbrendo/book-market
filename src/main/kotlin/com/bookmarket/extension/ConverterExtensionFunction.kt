@@ -1,6 +1,7 @@
 package com.bookmarket.extension
 
 import com.bookmarket.Enums.BookStatus
+import com.bookmarket.Enums.CustomerStatus
 import com.bookmarket.controller.request.PostBookRequest
 import com.bookmarket.controller.request.PostCustomerRequest
 import com.bookmarket.controller.request.PutBookRequest
@@ -9,11 +10,11 @@ import com.bookmarket.model.BookModel
 import com.bookmarket.model.CustomerModel
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {
-    return CustomerModel(name = this.name, email = this.email)
+    return CustomerModel(name = this.name, email = this.email, status = CustomerStatus.ACTIVE)
 }
 
-fun PutCustomerRequest.toCustomerModel(id: Int): CustomerModel {
-    return CustomerModel(id = id, name = this.name, email = this.email)
+fun PutCustomerRequest.toCustomerModel(previousCustomer: CustomerModel): CustomerModel {
+    return CustomerModel(id = previousCustomer.id, name = this.name, email = this.email, previousCustomer.status)
 }
 
 fun PostBookRequest.toBookModel(customer: CustomerModel): BookModel {
