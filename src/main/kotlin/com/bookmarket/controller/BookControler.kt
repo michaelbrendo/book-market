@@ -2,8 +2,9 @@ package com.bookmarket.controller
 
 import com.bookmarket.controller.request.PostBookRequest
 import com.bookmarket.controller.request.PutBookRequest
+import com.bookmarket.controller.response.BookResponse
 import com.bookmarket.extension.toBookModel
-import com.bookmarket.model.BookModel
+import com.bookmarket.extension.toResponse
 import com.bookmarket.service.BookService
 import com.bookmarket.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -31,15 +32,15 @@ class BookControler(
     }
 
     @GetMapping
-    fun findAll(): List<BookModel> {
-        return bookService.findAll()
+    fun findAll(): List<BookResponse> {
+        return bookService.findAll().map { it.toResponse() }
     }
 
     @GetMapping("/actives")
-    fun findActivesBooks(): List<BookModel> = bookService.findActives()
+    fun findActivesBooks(): List<BookResponse> = bookService.findActives().map { it.toResponse() }
 
     @GetMapping("/{id}")
-    fun findBookById(@PathVariable id: Int): BookModel = bookService.findBookById(id)
+    fun findBookById(@PathVariable id: Int): BookResponse = bookService.findBookById(id).toResponse()
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

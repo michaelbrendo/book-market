@@ -6,6 +6,8 @@ import com.bookmarket.controller.request.PostBookRequest
 import com.bookmarket.controller.request.PostCustomerRequest
 import com.bookmarket.controller.request.PutBookRequest
 import com.bookmarket.controller.request.PutCustomerRequest
+import com.bookmarket.controller.response.BookResponse
+import com.bookmarket.controller.response.CustomerResponse
 import com.bookmarket.model.BookModel
 import com.bookmarket.model.CustomerModel
 
@@ -33,5 +35,19 @@ fun PutBookRequest.toBookModel(previousBook: BookModel): BookModel {
         price = this.price ?: previousBook.price,
         status = previousBook.status,
         customer = previousBook.customer
+    )
+}
+
+fun CustomerModel.toResponse(): CustomerResponse {
+    return CustomerResponse(id = this.id, name = this.name, email = this.email, status = this.status)
+}
+
+fun BookModel.toResponse(): BookResponse {
+    return BookResponse(
+        id = this.id,
+        name = this.name,
+        price = this.price,
+        customer = this.customer,
+        status = this.status
     )
 }

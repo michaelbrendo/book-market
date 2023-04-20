@@ -2,8 +2,9 @@ package com.bookmarket.controller
 
 import com.bookmarket.controller.request.PostCustomerRequest
 import com.bookmarket.controller.request.PutCustomerRequest
+import com.bookmarket.controller.response.CustomerResponse
 import com.bookmarket.extension.toCustomerModel
-import com.bookmarket.model.CustomerModel
+import com.bookmarket.extension.toResponse
 import com.bookmarket.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -24,13 +25,13 @@ class CustomerController(
 ) {
 
     @GetMapping
-    fun getAllCustomer(@RequestParam name: String?): List<CustomerModel> {
-        return customerService.getAllCustomer(name)
+    fun getAllCustomer(@RequestParam name: String?): List<CustomerResponse> {
+        return customerService.getAllCustomer(name).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel {
-        return customerService.findCustomerById(id)
+    fun getCustomer(@PathVariable id: Int): CustomerResponse {
+        return customerService.findCustomerById(id).toResponse()
     }
 
     @PostMapping
